@@ -6,13 +6,13 @@ https://www.facebook.com/videoessaybot
 # Usage
 To start post scheduling:
 ```
-node bot.js
+python bot.py
 ```
 To generate and post an image manually: 
 ```
-node bot.js -m
+python bot.py -m
 ```
 To generate a test image, without posting:
 ```
-node bot.js -t
+python bot.py -t
 ```
