@@ -5,10 +5,26 @@ from config import access_token
 import schedule
 import time
 import sys
+import functools
 
 m = model()
 graph = facebook.GraphAPI(access_token)
 
+def catch_exceptions(cancel_on_failure=False):
+    def catch_exceptions_decorator(job_func):
+        @functools.wraps(job_func)
+        def wrapper(*args, **kwargs):
+            try:
+                return job_func(*args, **kwargs)
+            except:
+                import traceback
+                print(traceback.format_exc())
+                if cancel_on_failure:
+                    return schedule.CancelJob
+        return wrapper
+    return catch_exceptions_decorator
+
+@catch_exceptions(cancel_on_failure=False)
 def job(post):
     title = m.make_short_sentence(50, tries=100)
     channel = gen_channel()
@@ -37,7 +53,7 @@ if __name__ == '__main__':
     if len(sys.argv) <= 1:
         print('Starting scheduling...')
         print()
-        schedule.every(3).hours.do(lambda: job(True)).run()
+        schedule.every(1).hours.do(lambda: job(True)).run()
         while True:
             schedule.run_pending()
             time.sleep(1)
