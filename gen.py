@@ -49,8 +49,15 @@ def gen_img(title, channel, views, time):
     fetch(args)
 
     im = Image.open('thumb.jpg')
+    draw = ImageDraw.Draw(im)
+
     im = im.convert('RGB')
     im = im.resize((640, 360))
+    draw = ImageDraw.Draw(im)
+    draw.rectangle([550, 310, 630, 350], fill='black')
+    fnt = ImageFont.truetype('Arial Bold', 27)
+    draw.text((555, 315), time, font=fnt, fill='white')
+
     im.save('thumb.jpg')
 
     im = Image.open('out.png')
@@ -73,10 +80,6 @@ def gen_img(title, channel, views, time):
     draw = ImageDraw.Draw(im)
     draw.text((675,y + 30), channel, font=fnt, fill='grey')
     draw.text((675,y + 85), views, font=fnt, fill='grey')
-
-    draw.rectangle([560, 320, 640, 360], fill='black')
-    fnt = ImageFont.truetype('Arial Bold', 27)
-    draw.text((565, 325), time, font=fnt, fill='white')
 
     im.save('out.png')
     print('Image generated!')
