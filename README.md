@@ -3,6 +3,8 @@ Facebook/Twitter bot that generates hypothetical YouTube video essays, and posts
 
 https://www.facebook.com/videoessaybot
 
+https://twitter.com/breadtubebot
+
 # Usage
 To start post scheduling:
 ```
