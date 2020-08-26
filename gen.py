@@ -8,7 +8,6 @@ from image_utils import ImageText
 from random_username.generate import generate_username
 from random import randint
 import os
-from resizeimage import resizeimage
 import re
 from fetch import fetch
 
