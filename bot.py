@@ -1,12 +1,13 @@
 from gen import model, gen_channel, gen_img, gen_time, gen_views
 import facebook
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from config import fb_access_token, consumer_key, consumer_secret, access_key, access_secret
-import schedule
 import time
 import sys
-import functools
 import tweepy
+from apscheduler.schedulers.blocking import BlockingScheduler
+
+sched = BlockingScheduler()
 
 m = model()
 
@@ -16,21 +17,6 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
 api = tweepy.API(auth)
 
-def catch_exceptions(cancel_on_failure=False):
-    def catch_exceptions_decorator(job_func):
-        @functools.wraps(job_func)
-        def wrapper(*args, **kwargs):
-            try:
-                return job_func(*args, **kwargs)
-            except:
-                import traceback
-                print(traceback.format_exc())
-                if cancel_on_failure:
-                    return schedule.CancelJob
-        return wrapper
-    return catch_exceptions_decorator
-
-@catch_exceptions(cancel_on_failure=False)
 def job(post):
     title = m.make_short_sentence(50, tries=100)
     channel = gen_channel()
@@ -61,10 +47,8 @@ if __name__ == '__main__':
     if len(sys.argv) <= 1:
         print('Starting scheduling...')
         print()
-        schedule.every(1).hours.do(lambda: job(True)).run()
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+        sched.add_job(lambda: job(True), 'cron', minute=0)
+        sched.start()
     elif sys.argv[1] == '-m':
         print('Manually generating and posting image...')
         print()

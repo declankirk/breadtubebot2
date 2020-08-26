@@ -14,9 +14,10 @@ def scrape(num):
 
     for submission in posts:
         s = submission.title
-        s = re.sub(r"\[[^\]]*\]:* *", "", s) # removing all tags and trailing whitespace
+        s = re.sub(r"\[[^\]]*\]:* *", "", s)
         s = re.sub(r"\([0-9]+:[0-9][0-9]\) *", "", s)
         s = re.sub(r" *[^\x00-\x7F]+ *", "", s)
+        s = re.sub(r"http\S+", "", s)
 
         s = re.sub(r"(OC) *", "", s)
         s = re.sub(r"(Found) *", "", s)
