@@ -29,5 +29,3 @@ def scrape(num):
             continue
         s += '\n'
         f.write(s.encode("utf-8"))
-
-scrape(500000)

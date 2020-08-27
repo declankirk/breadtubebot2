@@ -1,12 +1,10 @@
-from gen import model, gen_channel, gen_img, gen_time, gen_views
+from gen import gen_channel, gen_img, gen_time, gen_views
 import facebook
 from datetime import datetime, date, timedelta
 from config import fb_access_token, consumer_key, consumer_secret, access_key, access_secret
-import time
 import sys
 import tweepy
-
-m = model()
+import markovify
 
 graph = facebook.GraphAPI(fb_access_token)
 
@@ -14,7 +12,14 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
 api = tweepy.API(auth)
 
+def get_model():
+    with open('model.json', 'r') as f:
+        model_json = f.read()
+    model = markovify.NewlineText.from_json(model_json)
+    return model
+
 def job(post):
+    m = get_model()
     title = m.make_short_sentence(50, tries=100)
     channel = gen_channel()
     views = gen_views()

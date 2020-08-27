@@ -1,18 +1,9 @@
-import sys
-import markovify
 from PIL import Image, ImageDraw, ImageFont
 from image_utils import ImageText
 from random_username.generate import generate_username
 from random import randint
-import os
 import re
 from fetch import fetch
-
-def model():
-    with open('titles.txt', encoding='utf8') as f:
-        titles = f.read()
-    model = markovify.NewlineText(titles)
-    return model
 
 def gen_channel():
     username = generate_username(1)[0][:-1]
@@ -33,7 +24,8 @@ def gen_time():
 def gen_img(title, channel, views, time):
     common = {'the', 'and', 'that', 'have', 'for', 'not', 'with', 'you', 'this', 'but', 
                 'his', 'from', 'they', 'say', 'her', 'she', 'will', 'one', 'would', 
-                'there', 'their', 'how', 'what', 'its', 'why', 'who', 'history'}
+                'there', 'their', 'how', 'what', 'its', 'why', 'who', 'make', 'been', 
+                'history'}
     args = []
 
     for word in title.lower().split(' '):
