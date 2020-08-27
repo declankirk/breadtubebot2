@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# encoding: utf-8
-
 import sys
 import re
 from psaw import PushshiftAPI

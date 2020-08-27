@@ -6,15 +6,11 @@ https://www.facebook.com/videoessaybot
 https://twitter.com/breadtubebot
 
 # Usage
-To start post scheduling:
+To generate and post an image:
 ```
 python bot.py
 ```
-To generate and post an image manually: 
-```
-python bot.py -m
-```
 To generate a test image, without posting:
 ```
-python bot.py -t
+python bot.py -test
 ```

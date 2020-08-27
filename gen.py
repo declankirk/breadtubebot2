@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# encoding: utf-8
-
 import sys
 import markovify
 from PIL import Image, ImageDraw, ImageFont
@@ -36,7 +33,7 @@ def gen_time():
 def gen_img(title, channel, views, time):
     common = {'the', 'and', 'that', 'have', 'for', 'not', 'with', 'you', 'this', 'but', 
                 'his', 'from', 'they', 'say', 'her', 'she', 'will', 'one', 'would', 
-                'there', 'their', 'how', 'what', 'its', 'why'}
+                'there', 'their', 'how', 'what', 'its', 'why', 'who', 'history'}
     args = []
 
     for word in title.lower().split(' '):

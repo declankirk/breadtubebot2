@@ -5,9 +5,6 @@ from config import fb_access_token, consumer_key, consumer_secret, access_key, a
 import time
 import sys
 import tweepy
-from apscheduler.schedulers.blocking import BlockingScheduler
-
-sched = BlockingScheduler()
 
 m = model()
 
@@ -45,18 +42,9 @@ def job(post):
 
 if __name__ == '__main__':
     if len(sys.argv) <= 1:
-        print('Starting scheduling...')
-        print()
-        sched.add_job(lambda: job(True), 'cron', minute=0)
-        sched.start()
-    elif sys.argv[1] == '-m':
-        print('Manually generating and posting image...')
-        print()
         job(True)
-    elif sys.argv[1] == '-t':
-        print('Generating test image...')
-        print()
+    elif sys.argv[1] == '-test':
         job(False)
     else:
-        print('Usage: python bot.py [-m|-t]')
+        print('Usage: python bot.py [-test]')
         sys.exit(1)
