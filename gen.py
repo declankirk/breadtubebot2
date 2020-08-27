@@ -22,10 +22,9 @@ def gen_time():
     return time
 
 def gen_img(title, channel, views, time):
-    common = {'the', 'and', 'that', 'have', 'for', 'not', 'with', 'you', 'this', 'but', 
-                'his', 'from', 'they', 'say', 'her', 'she', 'will', 'one', 'would', 
-                'there', 'their', 'how', 'what', 'its', 'why', 'who', 'make', 'been', 
-                'history'}
+    with open('common.txt') as f:
+        common = f.read().splitlines()
+    
     args = []
 
     for word in title.lower().split(' '):
