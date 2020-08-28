@@ -15,9 +15,10 @@ def scrape(num):
         s = re.sub(r"\([0-9]+:[0-9][0-9]\) *", "", s)
         s = re.sub(r" *[^\x00-\x7F]+ *", "", s)
         s = re.sub(r"http\S+", "", s)
-
-        s = re.sub(r"(OC) *", "", s)
-        s = re.sub(r"(Found) *", "", s)
+        
+        s = re.sub(r"(OC) *", "", s, flags=re.IGNORECASE)
+        s = re.sub(r"(Found) *", "", s, flags=re.IGNORECASE)
+        s = re.sub(r"Video Essays* *", "", s, flags=re.IGNORECASE)
 
         s = re.sub(r"&gt;", ">", s)
         s = re.sub(r"&lt;", "<", s)
