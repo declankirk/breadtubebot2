@@ -10,6 +10,10 @@ Titles are generated with a Markov model, built from scraped [r/videoessay](http
 ![ex3](/examples/ex3.png)
 
 # Usage
+To build the model:
+```
+python model.py
+```
 To generate and post an image:
 ```
 python bot.py
